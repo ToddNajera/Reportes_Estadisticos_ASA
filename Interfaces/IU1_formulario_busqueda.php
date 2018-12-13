@@ -18,7 +18,7 @@ del usuario
         <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <class="navbar-brand" href="#"><img src="imagenes/Logo_mail.png" alt="logo1" width="250" height="60" border="10" />
+            <class="navbar-brand" href="#"><img src="imagenes/Logo_mail.jpg" alt="logo1" width="250" height="60" border="1"/>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
