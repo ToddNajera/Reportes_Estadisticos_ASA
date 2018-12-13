@@ -29,6 +29,17 @@ del usuario
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" ><!--Inicio del Formulacio-->
+       <h3>POLIZAS DE IMPUESTOS</h3>
+       <p>Seleccione el mes del cual quiere generar un reporte</p>
+
+         <form action="IU2_resultado_consulta.php" method="post">
+           <input type="month" name="mes"><br/ >
+           <br/><input type="submit" name="entrar" value="CONTINUAR"></input>
+         </from><!--Fin del formulario-->
+     </div><!--Fin del formulario de polizas -->
+
     </div>
 
   </body>
