@@ -9,7 +9,7 @@ $dbsusr = 'IntranetARA';
 $dbacve = 'Intranet18ARA';
 $dbanom = 'arancelsa';
 
-$dbacon = new mysqli($dbahst, $dbausr, $dbacve, $dbanom);
+$dbARA = new mysqli($dbahst, $dbausr, $dbacve, $dbanom);
 if ($dbscon->connect_error)
 {
     die("¡CONEXION FALLIDA! : " . $dbscon->connect_error);
