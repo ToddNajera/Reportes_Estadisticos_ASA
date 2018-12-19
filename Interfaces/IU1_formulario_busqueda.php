@@ -35,7 +35,8 @@ del usuario
        <p>Seleccione el mes del cual quiere generar un reporte</p>
 
          <form action="IU2_resultado_consulta.php" method="post">
-           <input type="month" name="mes"><br/ >
+           <input type="month" name="mes">
+           <input type="month" name="mes2"><br/ >
            <br/><input type="submit" name="entrar" value="CONTINUAR"></input>
          </from><!--Fin del formulario-->
      </div><!--Fin del formulario de polizas -->
