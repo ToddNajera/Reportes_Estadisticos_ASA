@@ -4,7 +4,8 @@ Autor:Porras Najera Miguel Najera.
 Descripcion: En esta interfaz se muestra el resultado en manera de tabla donde se muestran los datos obtenidos
 de las distintas tablas.
 */
-
+$mes1=$_POST['mes'];
+$mes2=$_POST['mes1']; 
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
