@@ -4,8 +4,17 @@ Autor:Porras Najera Miguel Najera.
 Descripcion: En esta interfaz se muestra el resultado en manera de tabla donde se muestran los datos obtenidos
 de las distintas tablas.
 */
-$mes1=$_POST['mes'];
-$mes2=$_POST['mes2']; 
+$fechaIN_Consulta=explode("-",$_POST['mes']);
+$fechaFN_Consulta=explode("-",$_POST['mes2']);
+
+if($fechaIN_Consulta[0]==$fechaFN_Consulta[0]){
+    $year_Consulta=$fechaIN_Consulta[0];
+  }
+  else {
+    $year_Consulta="0";
+  }
+include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
+include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,6 +43,30 @@ $mes2=$_POST['mes2'];
       </nav>
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" >
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
+        <?php
+          if ($year_Consulta=="0" || $fechaIN_Consulta[1]>$fechaFN_Consulta[1] ) {
+            echo'
+            <div class="alert alert-danger">
+            <strong>Advertencia!</strong> Los años de ejercicios no concuerdan, verificar la informacion.
+            </div>
+            ';
+            header('Refresh: 3 ; url=IU1_formulario_busqueda.php');
+          }
+          else {
+            echo '
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Meses</th>
+                </tr>
+              </thead>
+            ';
+
+            echo '</table>';
+          }
+         ?>
+
       </div>
     </div>
 
