@@ -17,7 +17,20 @@ function siguiente_mes($fechaIN,$fechaFN){
   }
 }
 
-function obtener_TOTALES_SAT($sql){
+function obtener_TOTALES_SAT($sql,$dba){
+  $subtutotal_TOTAL="";
+  $iva_Total="";
+  $totalf_TOTAL="";
 
+  $Resultado = $dba->query($sql);
+  while( $row = $Resultado->fetch_assoc() ){
+    $subtutotal_TOTAL=$subtutotal_TOTAL+$row['subtotal'];
+    $iva_Total=$iva_Total+$row['impuestos'];
+    $totalf_TOTAL=$totalf_TOTAL+$row['total'];
+  }
+
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
 }
+
+
 ?>
