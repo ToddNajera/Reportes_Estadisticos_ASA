@@ -69,8 +69,60 @@ function obtener_TOTALES_POLIZA($sql_iva,$sql_ig,$dba){
   while( $row = $Resultado_ig->fetch_assoc() ){
     $subtutotal_TOTAL=$subtutotal_TOTAL+$row['cargo'];
   }
-
+  $totalf_TOTAL=$subtutotal_TOTAL+$iva_Total;
   return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
+}
+
+
+function muestra_DATOS_MES($mes_EJERCICIO){
+  echo '
+  <tr>
+    <th scope="row">MES</th>
+    <td>'.$mes_EJERCICIO.'</td>
+  </tr>
+  ';
+}
+
+function convertir_num_mes($num_mes){
+  $mes="";
+  switch ($num_mes) {
+    case 1:
+        return $mes="ENERO";
+        break;
+    case 2:
+        return $mes="FEBRERO";
+        break;
+    case 3:
+        return $mes="MARZO";
+        break;
+    case 4:
+        return $mes="ABRIL";
+        break;
+    case 5:
+        return $mes="MAYO";
+        break;
+    case 6:
+        return $mes="JUNIO";
+        break;
+    case 7:
+        return $mes="JULIO";
+        break;
+    case 8:
+        return $mes="AGOSTO";
+        break;
+    case 9:
+        return $mes="SEPTIEMBRE";
+        break;
+    case 10:
+        return $mes="OCTUBRE";
+        break;
+    case 11:
+        return $mes="NOVIEMBRE";
+        break;
+    case 12:
+        return $mes="DICIEMBRE";
+        break;
+  }
 }
 
 ?>
