@@ -74,13 +74,23 @@ function obtener_TOTALES_POLIZA($sql_iva,$sql_ig,$dba){
 }
 
 
-function muestra_DATOS_MES($mes_EJERCICIO){
+function muestra_DATOS_MES($mes_EJERCICIO,$array_TOTALES){
   echo '
   <tr>
     <th scope="row">MES</th>
     <td>'.$mes_EJERCICIO.'</td>
   </tr>
   ';
+  $array = array("Total ", "bar", "hello");
+  for($i=0 ;$i <= sizeof($array_TOTALES); $i++ ){
+    echo '
+    <tr>
+      <th scope="row">MES</th>
+      <td>'.$mes_EJERCICIO[$i].'</td>
+    </tr>
+    ';
+  }
+
 }
 
 function convertir_num_mes($num_mes){
