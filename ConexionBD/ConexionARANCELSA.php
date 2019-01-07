@@ -5,14 +5,14 @@ El siguiente script es la conexion a la base de datos de ARANCELSA
 */
 
 $dbahst = '192.0.0.4';
-$dbsusr = 'IntranetARA';
+$dbausr = 'IntranetARA';
 $dbacve = 'Intranet18ARA';
 $dbanom = 'arancelsa';
 
 $dbARA = new mysqli($dbahst, $dbausr, $dbacve, $dbanom);
-if ($dbscon->connect_error)
+if ($dbARA->connect_error)
 {
-    die("¡CONEXION FALLIDA! : " . $dbscon->connect_error);
+    die("¡CONEXION FALLIDA! : " . $dbARA->connect_error);
 }
-$dbscon->set_charset("utf8");
+$dbARA->set_charset("utf8");
 ?>

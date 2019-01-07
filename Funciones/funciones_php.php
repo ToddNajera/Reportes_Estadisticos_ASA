@@ -27,11 +27,12 @@ function obtener_TOTALES_SAT($sql,$dba){
   $Resultado = $dba->query($sql);
   while( $row = $Resultado->fetch_assoc() ){
     $subtutotal_TOTAL=$subtutotal_TOTAL+$row['subtotal'];
-    $iva_Total=$iva_Total+$row['impuestos'];
+    $iva_Total=$iva_Total+$row['impuesto'];
     $totalf_TOTAL=$totalf_TOTAL+$row['total'];
   }
-
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
+  $diferencia_TOTAL=$subtutotal_TOTAL+$iva_Total;
+  $diferencia_TOTAL= intval(number_format($diferencia_TOTAL-$totalf_TOTAL, 2));
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
 }
 
 /*
@@ -48,8 +49,9 @@ function obtener_TOTALES_CTAGASTOS($sql,$dba){
     $iva_Total=$iva_Total+$row['iva_total'];
     $totalf_TOTAL=$totalf_TOTAL+$row['total_factura'];
   }
-
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
+  $diferencia_TOTAL=$subtutotal_TOTAL+$iva_Total;
+  $diferencia_TOTAL= intval(number_format($diferencia_TOTAL-$totalf_TOTAL, 2));
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
 }
 
 /*
@@ -62,35 +64,39 @@ function obtener_TOTALES_POLIZA($sql_iva,$sql_ig,$dba){
 
   $Resultado_iva = $dba->query($sql_iva);
   while( $row = $Resultado_iva->fetch_assoc() ){
-    $iva_Total=$iva_Total+$row['cargo'];
+    $iva_Total=$iva_Total+$row['abono'];
   }
 
   $Resultado_ig = $dba->query($sql_ig);
   while( $row = $Resultado_ig->fetch_assoc() ){
-    $subtutotal_TOTAL=$subtutotal_TOTAL+$row['cargo'];
+    $subtutotal_TOTAL=$subtutotal_TOTAL+$row['abono'];
   }
   $totalf_TOTAL=$subtutotal_TOTAL+$iva_Total;
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
+  $diferencia_TOTAL=0.00;
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
 }
 
 
-function muestra_DATOS_MES($mes_EJERCICIO,$array_TOTALES){
+function muestra_DATOS_MES($mes_EJERCICIO,$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS){
   echo '
   <tr>
-    <th scope="row">MES</th>
-    <td>'.$mes_EJERCICIO.'</td>
+    <th scope="row">'.$mes_EJERCICIO.'</th>
+    <td>POLIZAS SAT</td>
+    <td>POLIZAS INGRESOS</td>
+    <td>CUENTAS DE GASTOS</td>
   </tr>
   ';
-  $array = array("Total ", "bar", "hello");
-  for($i=0 ;$i <= sizeof($array_TOTALES); $i++ ){
+  $array_Titulos = array("Total sin IVA","Total IVA","Total Facturas","Diferencia");
+  for($i=0 ;$i < sizeof($Totales_SAT); $i++ ){
     echo '
     <tr>
-      <th scope="row">MES</th>
-      <td>'.$mes_EJERCICIO[$i].'</td>
+      <th scope="row">'.$array_Titulos[$i].'</th>
+      <td>$'.$Totales_SAT[$i].'</td>
+      <td>$'.$Totales_POLIZAS[$i].'</td>
+      <td>$'.$Totales_CTAGASTOS[$i].'</td>
     </tr>
     ';
   }
-
 }
 
 function convertir_num_mes($num_mes){
