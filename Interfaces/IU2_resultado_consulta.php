@@ -74,16 +74,12 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones
                 </tr>
               </thead>
             ';
-<<<<<<< HEAD
-            muestra_DATOS_MES(convertir_num_mes($fechaIN_Consulta[1]));
-=======
             /*INICIA CONSTRUCCION DEL REPORTE ESTADISTICO*/
             $Totales_SAT=obtener_TOTALES_SAT($query_SAT,$dbARA);
             $Totales_CTAGASTOS=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA);
             $Totales_POLIZAS=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA);
             muestra_DATOS_MES(convertir_num_mes($fechaIN_Consulta[1]),$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS);
           //var_dump($Totales_SAT);
->>>>>>> d727bcbbdb1bba4e8e2eabf1210da849c28bd789
             echo '</table>';
           }
          ?>
