@@ -13,8 +13,8 @@ if($fechaIN_Consulta[0]==$fechaFN_Consulta[0]){
   else {
     $year_Consulta="0";
   }
-include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
-include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
+include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/Querys_bd.php";
+include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -62,7 +62,7 @@ include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funcio
                 </tr>
               </thead>
             ';
-
+            muestra_DATOS_MES(convertir_num_mes($fechaIN_Consulta[1]));
             echo '</table>';
           }
          ?>
