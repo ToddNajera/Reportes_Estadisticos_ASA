@@ -6,6 +6,8 @@ de las distintas tablas.
 */
 $fechaIN_Consulta=explode("-",$_POST['mes']);
 $fechaFN_Consulta=explode("-",$_POST['mes2']);
+$mes_ConsultaIN=$fechaIN_Consulta[1];
+$mes_ConsultaFN=$fechaFN_Consulta[1];
 
 if($fechaIN_Consulta[0]==$fechaFN_Consulta[0]){
     $year_Consulta=$fechaIN_Consulta[0];
@@ -13,6 +15,9 @@ if($fechaIN_Consulta[0]==$fechaFN_Consulta[0]){
   else {
     $year_Consulta="0";
   }
+//include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
+//include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
+//include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\ConexionBD\ConexionARANCELSA.php";
 include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/Querys_bd.php";
 include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 
@@ -44,6 +49,8 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" >
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
         <?php
+        /*EL REPORTEADOR ESTA CONTEMPLANDO 3 CASOS POSIBLES*/
+        //CASO EN QUE NO CONCUERDE EL AÑO DE EJERCICIO O LOS MESES SE INTRODUSCAN DE MANERA ERRONEA
           if ($year_Consulta=="0" || $fechaIN_Consulta[1]>$fechaFN_Consulta[1] ) {
             echo'
             <div class="alert alert-danger">
@@ -52,17 +59,31 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones
             ';
             header('Refresh: 3 ; url=IU1_formulario_busqueda.php');
           }
-          else {
+          /*ESTE ES EN CASO DE QUE SOLO SE CONSULTE LA INFORMACION DE UN SOLO MES*/
+          elseif($mes_ConsultaIN-$mes_ConsultaFN == 0 ) {
+
             echo '
             <table class="table">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Descripcion</th>
-                  <th scope="col">Meses</th>
+                  <th>Meses</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
             ';
+<<<<<<< HEAD
             muestra_DATOS_MES(convertir_num_mes($fechaIN_Consulta[1]));
+=======
+            /*INICIA CONSTRUCCION DEL REPORTE ESTADISTICO*/
+            $Totales_SAT=obtener_TOTALES_SAT($query_SAT,$dbARA);
+            $Totales_CTAGASTOS=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA);
+            $Totales_POLIZAS=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA);
+            muestra_DATOS_MES(convertir_num_mes($fechaIN_Consulta[1]),$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS);
+          //var_dump($Totales_SAT);
+>>>>>>> d727bcbbdb1bba4e8e2eabf1210da849c28bd789
             echo '</table>';
           }
          ?>
