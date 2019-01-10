@@ -51,6 +51,7 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
         <?php
         /*EL REPORTEADOR ESTA CONTEMPLANDO QUE SE DESEE EL REPORTE DE MAS DE UN MES*/
+        
 
          ?>
 

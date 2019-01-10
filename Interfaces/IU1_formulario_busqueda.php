@@ -12,6 +12,22 @@ del usuario
     <title>Polizas de Impuestos CAAAREM3</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- INICIA EL CODIGO JAVASCRIPT-->
+  <script  type="text/javascript">
+  /*
+  Dependiendo de la respuesta dada en el formulario la redireeccion es a UI1 O UI4 por diferente
+  tipo de reporte
+  */
+  function validar_fechas(evt){
+    var fecha_aux  = document.getElementById("mes").value;
+    var fechaIntroducida = new Date(parseInt(fecha_aux[0]-1),parseInt(fecha_aux[1]);
+    var fecha_aux2  = document.getElementById("mes2").value;
+    var fechaIntroducida2 = new Date(parseInt(fecha_aux[0]-1),parseInt(fecha_aux[1]);
+    alert();
+
+    }
+  </script>
+<!-- FIN EL CODIGO JAVASCRIPT-->
   </head>
   <body>
     <div class="container">
@@ -35,8 +51,8 @@ del usuario
        <p>Seleccione el mes del cual quiere generar un reporte</p>
 
          <form action="IU2_resultado_consulta.php" method="post">
-           <input type="month" name="mes">
-           <input type="month" name="mes2"><br/ >
+           <input type="month" name="mes" id="mes">
+           <input type="month" name="mes2" id="mes2"><br/ >
            <br/><input type="submit" name="entrar" value="CONTINUAR"></input>
          </from><!--Fin del formulario-->
      </div><!--Fin del formulario de polizas -->
