@@ -24,6 +24,9 @@ del usuario
     var fecha_aux2  = document.getElementById("mes2").value;
     var fechaIntroducida2 = new Date(parseInt(fecha_aux[0]-1),parseInt(fecha_aux[1]);
     alert();
+    if () {
+
+    }
 
     }
   </script>
