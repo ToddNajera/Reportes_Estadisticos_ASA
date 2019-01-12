@@ -18,16 +18,19 @@ del usuario
   Dependiendo de la respuesta dada en el formulario la redireeccion es a UI1 O UI4 por diferente
   tipo de reporte
   */
-  function validar_fechas(evt){
-    var fecha_aux  = document.getElementById("mes").value;
-    var fechaIntroducida = new Date(parseInt(fecha_aux[0]-1),parseInt(fecha_aux[1]);
-    var fecha_aux2  = document.getElementById("mes2").value;
-    var fechaIntroducida2 = new Date(parseInt(fecha_aux[0]-1),parseInt(fecha_aux[1]);
-    alert();
-    if () {
+  function validar_fechas(){
 
+    var fecha_aux  = document.getElementById("mes").value.split("-");
+    var fecha_aux2  = document.getElementById("mes2").value.split("-");
+
+    if(parseInt(fecha_aux[1])-parseInt(fecha_aux2[1]) == 0){
+      location.href = "IU2_resultado_consulta.php";
+      return true;
     }
-
+    else{
+      location.href = "IU4_resultado_consultas_varias.php";
+      return true;
+    }
     }
   </script>
 <!-- FIN EL CODIGO JAVASCRIPT-->
@@ -53,7 +56,7 @@ del usuario
        <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
        <p>Seleccione el mes del cual quiere generar un reporte</p>
 
-         <form action="IU2_resultado_consulta.php" method="post">
+         <form onsubmit=" return validar_fechas()" method="post">
            <input type="month" name="mes" id="mes">
            <input type="month" name="mes2" id="mes2"><br/ >
            <br/><input type="submit" name="entrar" value="CONTINUAR"></input>
