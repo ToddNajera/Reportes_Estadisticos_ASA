@@ -19,18 +19,19 @@ del usuario
   tipo de reporte
   */
   function validar_fechas(){
-
+    /*
     var fecha_aux  = document.getElementById("mes").value.split("-");
     var fecha_aux2  = document.getElementById("mes2").value.split("-");
 
     if(parseInt(fecha_aux[1])-parseInt(fecha_aux2[1]) == 0){
-      location.href = "IU2_resultado_consulta.php";
-      return true;
+      location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU2_resultado_consulta.php";
+      return false;
     }
     else{
-      location.href = "IU4_resultado_consultas_varias.php";
-      return true;
-    }
+      location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU4_resultado_consultas_varias.php";
+      return false;
+    }*/
+    location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU2_resultado_consulta.php";
     }
   </script>
 <!-- FIN EL CODIGO JAVASCRIPT-->
