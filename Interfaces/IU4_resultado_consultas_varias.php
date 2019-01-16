@@ -4,32 +4,25 @@ Autor:Porras Najera Miguel Najera.
 Descripcion: En esta interfaz se muestra el resultado en manera de tabla donde se muestran los datos obtenidos
 de las distintas tablas.
 */
-$fechaIN_Consulta=explode("-",$_POST['mes']);
-$fechaFN_Consulta=explode("-",$_POST['mes2']);
-$mes_ConsultaIN=$fechaIN_Consulta[1];
-$mes_ConsultaFN=$fechaFN_Consulta[1];
-
-if($fechaIN_Consulta[0]==$fechaFN_Consulta[0]){
-    $year_Consulta=$fechaIN_Consulta[0];
-  }
-  else {
-    $year_Consulta="0";
-  }
-include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
 include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
+$mesIN=getMonth_Num($_POST['MES']);
+$mesFN=getMonth_Num($_POST['MES2']);//es de un solo mes la consulta
+$year_Consulta=$_POST['YEAR'];
 include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\ConexionBD\ConexionARANCELSA.php";
+
 /*include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/Querys_bd.php";
 include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionBD/ConexionARANCELSA.php";
 */
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
   <head>
-    <meta charset="utf-8">
-    <title>Polizas de Impuestos CAAAREM3</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="utf-8" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -51,12 +44,11 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
         <?php
         /*EL REPORTEADOR ESTA CONTEMPLANDO QUE SE DESEE EL REPORTE DE MAS DE UN MES*/
-        
+        mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$mesIN,$mesFN);
 
          ?>
-
-      </div>
-    </div>
-
-  </body>
+         <form><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" /></form>
+       </div>
+     </div>
+   </body>
 </html>

@@ -1,21 +1,11 @@
 <?php
+include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
 /*
 Autor:Porras Najera Miguel Najera.
 Descripcion: Estan son las diversas funciones de uso en el programa.
 */
-/*
-Esta funcion sirve como auxiliar al momento de hacer las consultas en la base de datos por mes
-*/
-function siguiente_mes($fechaIN,$fechaFN){
-  $mesAux=$fechaIN;
-  if($mesAux<$fechaFN){
-    $mesAux=$mesAux+1;
-    return $mesAux;
-  }
-  else {
-    return "0";
-  }
-}
+
+/************************************************************FUNCIONES PARA EL ESTADISTICO DE UN MES***********************************************************/
 /*
 Esta funcion es para obtener los totales de la tabla cfdi_sat
 */
@@ -30,9 +20,7 @@ function obtener_TOTALES_SAT($sql,$dba){
     $iva_Total=$iva_Total+$row['impuesto'];
     $totalf_TOTAL=$totalf_TOTAL+$row['total'];
   }
-  $diferencia_TOTAL=$subtutotal_TOTAL+$iva_Total;
-  $diferencia_TOTAL= intval(number_format($diferencia_TOTAL-$totalf_TOTAL, 2));
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
 }
 
 /*
@@ -49,9 +37,7 @@ function obtener_TOTALES_CTAGASTOS($sql,$dba){
     $iva_Total=$iva_Total+$row['iva_total'];
     $totalf_TOTAL=$totalf_TOTAL+$row['total_factura'];
   }
-  $diferencia_TOTAL=$subtutotal_TOTAL+$iva_Total;
-  $diferencia_TOTAL= intval(number_format($diferencia_TOTAL-$totalf_TOTAL, 2));
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
 }
 
 /*
@@ -72,25 +58,33 @@ function obtener_TOTALES_POLIZA($sql_iva,$sql_ig,$dba){
     $subtutotal_TOTAL=$subtutotal_TOTAL+$row['abono'];
   }
   $totalf_TOTAL=$subtutotal_TOTAL+$iva_Total;
-  $diferencia_TOTAL=0.00;
-  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL,$diferencia_TOTAL);
+  return $TOTALES = array($subtutotal_TOTAL,$iva_Total,$totalf_TOTAL);
 }
 
-
+/*
+MUESTRA LOS DATOS DEL MESES
+*/
 function muestra_DATOS_MES($mes_EJERCICIO,$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS){
+  /*EL REPORTEADOR ESTA CONTEMPLANDO CASO UN SOLO MES*/
   echo '
-  <tr>
-    <th scope="row">'.$mes_EJERCICIO.'</th>
-    <td>POLIZAS SAT</td>
-    <td>POLIZAS INGRESOS</td>
-    <td>CUENTAS DE GASTOS</td>
-  </tr>
-  ';
-  $array_Titulos = array("Total sin IVA","Total IVA","Total Facturas","Diferencia");
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>SUMAS TOTALES DEL MES</th>
+      </tr>
+    </thead>
+    <tr>
+      <th scope="row">'.$mes_EJERCICIO.'</th>
+      <td>CFDIs SAT</td>
+      <td>POLIZAS INGRESOS</td>
+      <td>CUENTAS DE GASTOS</td>
+      </tr>
+      ';
+  $array_Titulos = array("Total sin IVA","Total IVA","Total Facturas");
   for($i=0 ;$i < sizeof($Totales_SAT); $i++ ){
     echo '
     <tr>
-      <th scope="row">'.$array_Titulos[$i].'</th>
+      <th>'.$array_Titulos[$i].'</th>
       <td>$'.$Totales_SAT[$i].'</td>
       <td>$'.$Totales_POLIZAS[$i].'</td>
       <td>$'.$Totales_CTAGASTOS[$i].'</td>
@@ -99,6 +93,50 @@ function muestra_DATOS_MES($mes_EJERCICIO,$Totales_SAT,$Totales_CTAGASTOS,$Total
   }
 }
 
+function muestra_DIFERENCIAS_MES($mes_EJERCICIO,$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS){
+  /*EL REPORTEADOR ESTA CONTEMPLANDO CASO UN SOLO MES*/
+  echo '
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">DIFERENCIAS TOTALES DEL MES</th>
+      </tr>
+    </thead>
+    <tr>
+      <th scope="row">TOTALES</th>
+      <td>CFDIs SAT</td>
+      <td>POLIZAS INGRESOS</td>
+      <td>CUENTAS DE GASTOS</td>
+      </tr>
+      ';
+  $array_Titulos = array("CFDIs SAT","POLIZAS INGRESOS","CUENTAS DE GASTOS");
+  $array_Totales= array($Totales_SAT[2],$Totales_POLIZAS[2],$Totales_CTAGASTOS[2]);
+  for($i=0 ;$i < sizeof($array_Totales); $i++ ){
+    echo '
+    <tr>
+      <th scope="row">'.$array_Titulos[$i].'</th>
+      <td>$'.(intval($array_Totales[$i])-intval($Totales_SAT[2])).'</td>
+      <td>$'.(intval($array_Totales[$i])-intval($Totales_POLIZAS[2])).'</td>
+      <td>$'.(intval($array_Totales[$i])-intval($Totales_CTAGASTOS[2])).'</td>
+    </tr>
+    ';
+  }
+}
+/************************************************************FUNCIONES GENERALES***********************************************************************/
+/*
+Esta funcion sirve como auxiliar al momento de hacer las consultas en la base de datos por mes
+*/
+function siguiente_mes($fechaIN,$fechaFN){
+  $mesAux=$fechaIN;
+  if($mesAux<$fechaFN){
+    $mesAux=$mesAux+1;
+    return $mesAux;
+  }
+  else {
+    return "0";
+  }
+}
+/*funcion que convierte de numero a letra el mes*/
 function convertir_num_mes($num_mes){
   $mes="";
   switch ($num_mes) {
@@ -141,4 +179,32 @@ function convertir_num_mes($num_mes){
   }
 }
 
+function getMonth_Num($mes) {
+
+ switch ($mes) {
+  case "ENERO"  : $month_numero = 1; break;
+  case "FEBRERO": $month_numero = 2; break;
+  case "MARZO"  : $month_numero = 3; break;
+  case "ABRIL"  : $month_numero = 4; break;
+  case "MAYO"   : $month_numero = 5; break;
+  case "JUNIO"  : $month_numero = 6; break;
+  case "JULIO"  : $month_numero = 7; break;
+  case "AGOSTO" : $month_numero = 8; break;
+  case "SEPTIEMBRE": $month_numero = 9; break;
+  case "OCTUBRE": $month_numero = 10; break;
+  case "NOVIEMBRE" : $month_numero = 11; break;
+  case "DICIEMBRE" : $month_numero = 12; break;
+ }
+ return ($month_numero);
+}
+/************************************************************FUNCIONES PARA EL ESTADISTICO DE VARIOS MESES***********************************************/
+
+function mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$mesIN,$mesFN){
+  $mesFN_aux=$mesFN;
+  for($mesIN;$mesIN<=$mesFN_aux;$mesIN++){
+    $mes_ConsultaFN=$mesIN;
+    $mes_ConsultaIN=$mesIN;
+    echo $query_SAT."<br />";
+  }
+}
 ?>
