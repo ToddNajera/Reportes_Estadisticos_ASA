@@ -18,20 +18,8 @@ del usuario
   Dependiendo de la respuesta dada en el formulario la redireeccion es a UI1 O UI4 por diferente
   tipo de reporte
   */
-  function validar_fechas(){
-    /*
-    var fecha_aux  = document.getElementById("mes").value.split("-");
-    var fecha_aux2  = document.getElementById("mes2").value.split("-");
-
-    if(parseInt(fecha_aux[1])-parseInt(fecha_aux2[1]) == 0){
-      location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU2_resultado_consulta.php";
-      return false;
-    }
-    else{
-      location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU4_resultado_consultas_varias.php";
-      return false;
-    }*/
-    location.href = "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Interfaces/IU2_resultado_consulta.php";
+  function activar_formularios(){
+    alert("I am an alert box!");
     }
   </script>
 <!-- FIN EL CODIGO JAVASCRIPT-->
@@ -55,13 +43,20 @@ del usuario
 
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" ><!--Inicio del Formulacio-->
        <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
-       <p>Seleccione el mes del cual quiere generar un reporte</p>
+       <p>Seleccione si desea generar reporte de un solo mes o de varios meses a la vez</p>
+       <form id="formulario_seleccion">
+          <input onclick="return activar_formularios();" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+          <label class="form-check-label" for="inlineRadio1">POR MES</label>
+          <input onclick="return activar_formularios();" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+          <label class="form-check-label" for="inlineRadio2">VARIOS MESES</label>
+        </form>
 
-         <form onsubmit=" return validar_fechas()" method="post">
-           <input type="month" name="mes" id="mes">
-           <input type="month" name="mes2" id="mes2"><br/ >
-           <br/><input type="submit" name="entrar" value="CONTINUAR"></input>
-         </from><!--Fin del formulario-->
+        <div id="Formularios">
+
+        </div>
+
+
+        <!--Fin del SELECCION DE FORMULARIO-->
      </div><!--Fin del formulario de polizas -->
 
     </div>
