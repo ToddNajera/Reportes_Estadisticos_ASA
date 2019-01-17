@@ -23,7 +23,7 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
     <meta charset="utf-8">
     <title>Polizas de Impuestos CAAAREM3</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container">
@@ -45,9 +45,9 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
         <?php
             /*INICIA CONSTRUCCION DEL REPORTE ESTADISTICO*/
-            $Totales_SAT=obtener_TOTALES_SAT($query_SAT,$dbARA);
-            $Totales_CTAGASTOS=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA);
-            $Totales_POLIZAS=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA);
+            $Totales_SAT=obtener_TOTALES_SAT($query_SAT,$dbARA,$mes_ConsultaIN,$year_Consulta);
+            $Totales_CTAGASTOS=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mes_ConsultaIN,$year_Consulta);
+            $Totales_POLIZAS=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA,$mes_ConsultaIN,$year_Consulta);
             muestra_DATOS_MES($_POST['mes'],$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS);
             muestra_DIFERENCIAS_MES($_POST['mes'],$Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS);
           //var_dump($Totales_SAT);

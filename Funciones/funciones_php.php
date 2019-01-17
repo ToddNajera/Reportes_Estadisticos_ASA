@@ -9,10 +9,11 @@ Descripcion: Estan son las diversas funciones de uso en el programa.
 /*
 Esta funcion es para obtener los totales de la tabla cfdi_sat
 */
-function obtener_TOTALES_SAT($sql,$dba){
+function obtener_TOTALES_SAT($sqldb,$dba,$mesCN,$yearBD){
   $subtutotal_TOTAL="";
   $iva_Total="";
   $totalf_TOTAL="";
+  $sql=$sqldb[0].$mesCN.$sqldb[1].$mesCN.$sqldb[2].$yearBD.$sqldb[3];
 
   $Resultado = $dba->query($sql);
   while( $row = $Resultado->fetch_assoc() ){
@@ -26,11 +27,11 @@ function obtener_TOTALES_SAT($sql,$dba){
 /*
 Esta funcion es para obtener los totales de la tabla cuentas gastos
 */
-function obtener_TOTALES_CTAGASTOS($sql,$dba){
+function obtener_TOTALES_CTAGASTOS($sqldb,$dba,$mesCN,$yearBD){
   $subtutotal_TOTAL="";
   $iva_Total="";
   $totalf_TOTAL="";
-
+  $sql=$sqldb[0].$mesCN.$sqldb[1].$mesCN.$sqldb[2].$yearBD.$sqldb[3];
   $Resultado = $dba->query($sql);
   while( $row = $Resultado->fetch_assoc() ){
     $subtutotal_TOTAL=$subtutotal_TOTAL+$row['base_iva'];
@@ -43,16 +44,16 @@ function obtener_TOTALES_CTAGASTOS($sql,$dba){
 /*
 Esta funcion es para obtener los totales de la tabla cuentas gastos
 */
-function obtener_TOTALES_POLIZA($sql_iva,$sql_ig,$dba){
+function obtener_TOTALES_POLIZA($sqldb_iva,$sqldb_ig,$dba,$mesCN,$yearBD){
   $subtutotal_TOTAL="";
   $iva_Total="";
   $totalf_TOTAL="";
-
+  $sql_iva=$sqldb_iva[0].$mesCN.$sqldb_iva[1].$mesCN.$sqldb_iva[2].$yearBD.$sqldb_iva[3];
   $Resultado_iva = $dba->query($sql_iva);
   while( $row = $Resultado_iva->fetch_assoc() ){
     $iva_Total=$iva_Total+$row['abono'];
   }
-
+  $sql_ig=$sqldb_ig[0].$mesCN.$sqldb_ig[1].$mesCN.$sqldb_ig[2].$yearBD.$sqldb_ig[3];
   $Resultado_ig = $dba->query($sql_ig);
   while( $row = $Resultado_ig->fetch_assoc() ){
     $subtutotal_TOTAL=$subtutotal_TOTAL+$row['abono'];
@@ -199,12 +200,99 @@ function getMonth_Num($mes) {
 }
 /************************************************************FUNCIONES PARA EL ESTADISTICO DE VARIOS MESES***********************************************/
 
-function mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$mesIN,$mesFN){
-  $mesFN_aux=$mesFN;
-  for($mesIN;$mesIN<=$mesFN_aux;$mesIN++){
-    $mes_ConsultaFN=$mesIN;
-    $mes_ConsultaIN=$mesIN;
-    echo $query_SAT."<br />";
+function mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$yearBD){
+ $mesIN=$mes_ConsultaIN;
+ $mesFN=$mes_ConsultaFN;
+ echo '
+ <table class="table">
+   <thead class="thead-dark">
+     <tr>
+       <th>CUENTAS CFDI`s SAT</th>
+     </tr>
+   </thead>
+   <tr>
+   <td></td>
+     <td>Total sin IVA</td>
+     <td>Total IVA</td>
+     <td>Total Facturas</td>
+     </tr>
+   ';
+  for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+    $ResultadoMES=obtener_TOTALES_SAT($query_SAT,$dbARA,$mesIN,$yearBD);
+    echo'
+    <tr>
+      <th>'.convertir_num_mes($mesIN).'</th>
+      <td>$'.$ResultadoMES[0].'</td>
+      <td>$'.$ResultadoMES[1].'</td>
+      <td>$'.$ResultadoMES[2].'</td>
+    </tr>
+    ';
+    }
+    echo '</table><br/>';
   }
-}
+
+  /*ESTA FUNCION ES PARA MOSTRAR LOS TOTALES DE CTAGASTOS*/
+  function mostrar_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$yearBD){
+   $mesIN=$mes_ConsultaIN;
+   $mesFN=$mes_ConsultaFN;
+   echo '
+   <table class="table">
+     <thead class="thead-dark">
+       <tr>
+         <th>CUENTAS DE GASTOS</th>
+       </tr>
+     </thead>
+     <tr>
+     <td></td>
+       <td>Total sin IVA</td>
+       <td>Total IVA</td>
+       <td>Total Facturas</td>
+       </tr>
+     ';
+    for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+      $ResultadoMES=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mesIN,$yearBD);
+      echo'
+      <tr>
+        <th>'.convertir_num_mes($mesIN).'</th>
+        <td>$'.$ResultadoMES[0].'</td>
+        <td>$'.$ResultadoMES[1].'</td>
+        <td>$'.$ResultadoMES[2].'</td>
+      </tr>
+      ';
+      }
+      echo '</table><br/>';
+    }
+
+    /*ESTA FUNCION ES PARA MOSTRAR LOS TOTALES DE POLIZA*/
+    function mostrar_TOTALES_POLIZA($query_POLIZA_IG,$query_POLIZA_IMP,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$yearBD){
+     $mesIN=$mes_ConsultaIN;
+     $mesFN=$mes_ConsultaFN;
+     echo '
+     <table class="table">
+       <thead class="thead-dark">
+         <tr>
+           <th>POLIZA DE INGRESO</th>
+         </tr>
+       </thead>
+       <tr>
+       <td></td>
+         <td>Total sin IVA</td>
+         <td>Total IVA</td>
+         <td>Total Facturas</td>
+         </tr>
+       ';
+      for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+        $ResultadoMES=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA,$mesIN,$yearBD);
+        echo'
+        <tr>
+          <th>'.convertir_num_mes($mesIN).'</th>
+          <td>$'.$ResultadoMES[0].'</td>
+          <td>$'.$ResultadoMES[1].'</td>
+          <td>$'.$ResultadoMES[2].'</td>
+        </tr>
+        ';
+        }
+        echo '</table><br/>';
+      }
+
 ?>

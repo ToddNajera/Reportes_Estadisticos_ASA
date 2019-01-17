@@ -5,8 +5,8 @@ Descripcion: En esta interfaz se muestra el resultado en manera de tabla donde s
 de las distintas tablas.
 */
 include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
-$mesIN=getMonth_Num($_POST['MES']);
-$mesFN=getMonth_Num($_POST['MES2']);//es de un solo mes la consulta
+$mes_ConsultaIN=getMonth_Num($_POST['MES']);
+$mes_ConsultaFN=getMonth_Num($_POST['MES2']);//es de un solo mes la consulta
 $year_Consulta=$_POST['YEAR'];
 include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\ConexionBD\ConexionARANCELSA.php";
 
@@ -44,10 +44,15 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
         <h3>CONCILIACIÓN CFDIS SAT-ARANCEL</h3>
         <?php
         /*EL REPORTEADOR ESTA CONTEMPLANDO QUE SE DESEE EL REPORTE DE MAS DE UN MES*/
-        mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$mesIN,$mesFN);
 
+        mostrar_TOTALES_CFDI($query_SAT,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$year_Consulta);
+        mostrar_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$year_Consulta);
+        mostrar_TOTALES_POLIZA($query_POLIZA_IG,$query_POLIZA_IMP,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$year_Consulta);
          ?>
-         <form><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" /></form>
+         <?php
+         echo '<form action="IU3_muestraprevia_pdf.php"><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" />';
+         echo '<input type="button" value="IMPRIMIR" name="volver atrás2"/></form>';
+         ?>
        </div>
      </div>
    </body>
