@@ -6,7 +6,6 @@ de las distintas tablas.
 */
 include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 $mes_ConsultaIN=getMonth_Num($_POST['mes']);
-$mes_ConsultaFN=$mes_ConsultaIN;//es de un solo mes la consulta
 $year_Consulta=$_POST['year'];
 include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\ConexionBD\ConexionARANCELSA.php";
 include "G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\Funciones\Querys_bd.php";
@@ -54,7 +53,16 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
             echo '</table>';
          ?>
          <form><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" /></form>
-
+         <form action="IU3_muestraprevia_pdf.php" method="post">
+           <br/>
+           <input type="submit" name="entrar" value="IMPRIMIR"/>
+           <?php
+            echo '
+            <input type="hidden" name="mes_reporte" value="'.$mes_ConsultaIN.'">
+            <input type="hidden" name="year_reporte" value="'.$year_Consulta.'">
+            ';
+           ?>
+         </form>
       </div>
     </div>
 
