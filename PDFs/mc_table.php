@@ -1,5 +1,6 @@
 <?php
-require_once 'G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\fpdf\fpdf.php';
+//require_once 'G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\fpdf\fpdf.php';
+require_once 'C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/fpdf/fpdf.php';
 //ahora creamos una calse para usar como plantilla para generar los reportes
 
 setlocale (LC_ALL, "");//Cambie el nombre de las funciones al que se tiene configurado en la maquina
@@ -13,22 +14,84 @@ class PDF_MC_Table extends FPDF{
     //variable para la fecha del dia en que se hace el rreporte
     $today =  strtoupper("MEXICO, Ciudad de Mexico a ".strftime("%d de %B del %Y") );
 
-    $this->Image('G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\imagenes\Logo_mail.png', 15,4,75);
+    //$this->Image('G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\imagenes\Logo_mail.png', 15,4,75);
+    $this->Image('C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA\imagenes\Logo_mail.png', 15,4,75);
     $this->SetFont('Arial','B',12);
     $this->Cell(70);
     $this->Cell(200,5,$today,0,0,'R');//fecha
     $this->Ln(15);
     //Formato predefinido de la compañia y ubicacion
   }//FINAL DE HEADER
-
-  function Titulo_Tabla($MesIN,$MesFN,$yearEJER){
+  //Titutlo de reportes de VARIOS MESES(VM)
+  function Titulo_Tabla_VM($MesIN,$MesFN,$yearEJER){
     $this->SetFont('Arial','B',16);
     $this->Ln(5);
     $this->Cell(270,10,"REPORTE ESTADISTICO DE ".$MesIN." A ".$MesFN." DEL ".$yearEJER,0,0,'C');
   }
+  //Titulo de reportes de UN MES (UM)
+  function Titutlo_Tabla_UM($MesIN,$yearEJER){
+    $this->SetFont('Arial','B',16);
+    $this->Ln(5);
+    $this->Cell(270,10,"REPORTE ESTADISTICO DE ".$MesIN." DEL ".$yearEJER,0,0,'C');
+  }
+  //Funcion Recibe tres Array de Totales
+  function Crear_Tabla_Totales_UM($Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS){
+    $this->SetFont('Arial','B',16);
+    $this->Ln(10);
+    $this->Cell(270,10,"SUMAS TOTALES",1,1,'C');
+    $this->SetFont('Arial','B',14);
+    $this->Cell(67.5,10,"Descripcion",1,0,'C');
+    $this->Cell(67.5,10,"CFDI's del SAT",1,0,'C');
+    $this->Cell(67.5,10,"Cuentas de Gastos",1,0,'C');
+    $this->Cell(67.5,10,"Polizas de Ingresos",1,1,'C');
+    $this->Cell(67.5,10,"Total sin IVA",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
+    $this->Cell(67.5,10,"Total del IVA",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
+    $this->Cell(67.5,10,"Total de Factutas",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
+  }
+  //Funcion recibe tres array de Diferencias
+  function Crear_Tabla_Diferencias_UM($Totales_SAT,$Totales_CTAGASTOS,$Totales_POLIZAS){
+    $this->SetFont('Arial','B',16);
+    $this->Ln(10);
+    $this->SetX(77.5);
+    $this->Cell(135,10,"Diferencias TOTALES",1,1,'C');
+    $this->SetFont('Arial','B',12);
+    $this->SetX(77.5);
+    $this->Cell(67.5,10,"Diferencia con",1,0,'C');
+    $this->SetFont('Arial','B',14);
+    $this->Cell(67.5,10,"CFDI's del SAT",1,1,'C');
+    $this->SetX(77.5);
+    $this->Cell(67.5,10,"Cuentas de Gastos",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
+    $this->SetX(77.5);
+    $this->SetFont('Arial','B',12);
+    $this->Cell(67.5,10,"Diferencia con",1,0,'C');
+    $this->SetFont('Arial','B',14);
+    $this->Cell(67.5,10,"CFDI's del SAT",1,1,'C');
+    $this->SetX(77.5);
+    $this->Cell(67.5,10,"Polizas de Ingresos",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
+    $this->SetX(77.5);
+    $this->SetFont('Arial','B',12);
+    $this->Cell(67.5,10,"Diferencia con",1,0,'C');
+    $this->SetFont('Arial','B',14);
+    $this->Cell(67.5,10,"Polizas de Ingresos",1,1,'C');
+    $this->SetX(77.5);
+    $this->Cell(67.5,10,"Cuentas de Gastos",1,0,'C');
+    $this->Cell(67.5,10,"$",1,1,'C');
 
-  function Contenido_Tabla($query_SQL){
-    
+
+  }
+  //Funcion que invoca Crear_Tabla_Totales() y Crear_Tabla_Diferencias() para ser mostrado en el PDF
+  function Contenido_Tabla_UM(){
   }
 
 
