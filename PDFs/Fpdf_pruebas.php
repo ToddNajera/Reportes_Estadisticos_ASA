@@ -1,8 +1,8 @@
 <?php
 //Se agregan los datos de coneccion para la base de datos
 //incluimos la plantilla para el pdf
-//include 'G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/PDFs/mc_table.php';
-include 'C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/PDFs/mc_table.php';
+include 'G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/PDFs/mc_table.php';
+//include 'C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/PDFs/mc_table.php';
 $MesIN="ENERO";
 $MesFN="DICIEMBRE";
 $yearEJER="2018";

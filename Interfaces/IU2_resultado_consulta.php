@@ -57,9 +57,16 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
            <br/>
            <input type="submit" name="entrar" value="IMPRIMIR"/>
            <?php
+           //valores para la impresion
+           $totalSAT=$Totales_SAT[0].','.$Totales_SAT[1].','.$Totales_SAT[2];
+           $totalCTA=$Totales_CTAGASTOS[0].','.$Totales_CTAGASTOS[1].','.$Totales_CTAGASTOS[2];
+           $totalPOLIZA=$Totales_POLIZAS[0].','.$Totales_POLIZAS[1].','.$Totales_POLIZAS[2];
             echo '
             <input type="hidden" name="mes_reporte" value="'.$mes_ConsultaIN.'">
             <input type="hidden" name="year_reporte" value="'.$year_Consulta.'">
+            <input type="hidden" name="Totales_SAT" value="'.$totalSAT.'">
+            <input type="hidden" name="Totales_CTAGASTOS" value="'.$totalCTA.'">
+            <input type="hidden" name="Totales_POLIZAS" value="'.$totalPOLIZA.'">
             ';
            ?>
          </form>
