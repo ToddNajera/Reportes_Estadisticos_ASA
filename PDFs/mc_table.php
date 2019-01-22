@@ -1,5 +1,6 @@
 <?php
 require_once 'G:\WampServer\www\ProyectoArancel_2018\Reportes_Estadisticos_ASA\fpdf\fpdf.php';
+include "G:/WampServer/www/ProyectoArancel_2018/Reportes_Estadisticos_ASA/Funciones/funciones_php.php";
 //require_once 'C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/fpdf/fpdf.php';
 //ahora creamos una calse para usar como plantilla para generar los reportes
 
@@ -91,7 +92,64 @@ class PDF_MC_Table extends FPDF{
 
   }
   //Funcion que invoca Crear_Tabla_Totales() y Crear_Tabla_Diferencias() para ser mostrado en el PDF
-  function Contenido_Tabla_UM(){
+  function Contenido_Tabla_VM_SAT($mesIN,$mesFN,$yearEJER,$dbARA,$query_SAT){
+    $this->SetFont('Arial','B',12);
+    $this->Ln(10);
+    $this->Cell(270,9,"SUMAS TOTALES CFDI's SAT ",1,1,'C');
+    $this->SetFont('Arial','B',11);
+    $this->Cell(67.5,5,"Descripcion",1,0,'C');
+    $this->Cell(67.5,5,"Total sin IVA",1,0,'C');
+    $this->Cell(67.5,5,"Total IVA",1,0,'C');
+    $this->Cell(67.5,5,"Total Facturas",1,1,'C');
+    for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+      $ResultadoMES=obtener_TOTALES_SAT($query_SAT,$dbARA,$mesIN,$yearEJER);
+      $MesIN=convertir_num_mes($mesIN);
+      $this->Cell(67.5,7,$MesIN,1,0,'C');
+      $this->Cell(67.5,7,"$".$ResultadoMES[0],1,0,'C');
+      $this->Cell(67.5,7,"$".$ResultadoMES[1],1,0,'C');
+      $this->Cell(67.5,7,"$".$ResultadoMES[2],1,1,'C');
+    }
+    $this->Ln(5);
+  }
+
+  function Contenido_Tabla_VM_CTA($mesIN,$mesFN,$yearEJER,$dbARA,$query_CTAGASTOS){
+    $this->SetFont('Arial','B',12);
+    $this->Ln(10);
+    $this->Cell(270,9,"SUMAS TOTALES CUENTAS GASTOS",1,1,'C');
+    $this->SetFont('Arial','B',11);
+    $this->Cell(67.5,7,"Descripcion",1,0,'C');
+    $this->Cell(67.5,7,"Total sin IVA",1,0,'C');
+    $this->Cell(67.5,7,"Total IVA",1,0,'C');
+    $this->Cell(67.5,7,"Total Facturas",1,1,'C');
+    for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+      $ResultadoMES=obtener_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mesIN,$yearEJER);
+      $MesIN=convertir_num_mes($mesIN);
+      $this->Cell(67.5,5,$MesIN,1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[0],1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[1],1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[2],1,1,'C');
+    }
+    $this->Ln(5);
+  }
+
+  function Contenido_Tabla_VM_POLZ($mesIN,$mesFN,$yearEJER,$dbARA,$query_POLIZA_IMP,$query_POLIZA_IG){
+    $this->SetFont('Arial','B',12);
+    $this->Ln(10);
+    $this->Cell(270,9,"SUMAS TOTALES CUENTAS GASTOS",1,1,'C');
+    $this->SetFont('Arial','B',11);
+    $this->Cell(67.5,7,"Descripcion",1,0,'C');
+    $this->Cell(67.5,7,"Total sin IVA",1,0,'C');
+    $this->Cell(67.5,7,"Total IVA",1,0,'C');
+    $this->Cell(67.5,7,"Total Facturas",1,1,'C');
+    for($mesIN ; $mesIN<=$mesFN ; $mesIN++){
+      $ResultadoMES=obtener_TOTALES_POLIZA($query_POLIZA_IMP,$query_POLIZA_IG,$dbARA,$mesIN,$yearEJER);
+      $MesIN=convertir_num_mes($mesIN);
+      $this->Cell(67.5,5,$MesIN,1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[0],1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[1],1,0,'C');
+      $this->Cell(67.5,5,"$".$ResultadoMES[2],1,1,'C');
+    }
+    $this->Ln(5);
   }
 
 

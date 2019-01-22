@@ -104,24 +104,33 @@ function muestra_DIFERENCIAS_MES($mes_EJERCICIO,$Totales_SAT,$Totales_CTAGASTOS,
       </tr>
     </thead>
     <tr>
-      <th scope="row">TOTALES</th>
-      <td>CFDIs SAT</td>
-      <td>POLIZAS INGRESOS</td>
-      <td>CUENTAS DE GASTOS</td>
-      </tr>
-      ';
-  $array_Titulos = array("CFDIs SAT","POLIZAS INGRESOS","CUENTAS DE GASTOS");
-  $array_Totales= array($Totales_SAT[2],$Totales_POLIZAS[2],$Totales_CTAGASTOS[2]);
-  for($i=0 ;$i < sizeof($array_Totales); $i++ ){
-    echo '
-    <tr>
-      <th scope="row">'.$array_Titulos[$i].'</th>
-      <td>$'.(intval($array_Totales[$i])-intval($Totales_SAT[2])).'</td>
-      <td>$'.(intval($array_Totales[$i])-intval($Totales_POLIZAS[2])).'</td>
-      <td>$'.(intval($array_Totales[$i])-intval($Totales_CTAGASTOS[2])).'</td>
+      <th scope="row">DIFERENCIAS ENTRE</th>
+      <td>CFDIs de SAT</td>
     </tr>
-    ';
-  }
+    <tr>
+    <th>Cuentas de Gastos</th>
+    <td>$'.intval($Totales_CTAGASTOS[2]-$Totales_SAT[2]).'</td>
+    </tr>
+    <tr>
+      <th scope="row">DIFERENCIAS ENTRE</th>
+      <td>CFDIs de SAT</td>
+    </tr>
+    <tr>
+    <th>Polizas de Ingresos</th>
+    <td>$'.intval($Totales_POLIZAS[2]-$Totales_SAT[2]).'</td>
+    </tr>
+    <tr>
+      <th scope="row">DIFERENCIAS ENTRE</th>
+      <td>Cuentas de Gastos</td>
+    </tr>
+    <tr>
+    <th>Polizas de Ingresos</th>
+    <td>$'.intval($Totales_CTAGASTOS[2]-$Totales_POLIZAS[2]).'</td>
+    </tr>
+
+      ';
+
+
 }
 /************************************************************FUNCIONES GENERALES***********************************************************************/
 /*

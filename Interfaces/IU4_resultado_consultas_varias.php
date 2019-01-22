@@ -49,9 +49,18 @@ include "C:/wamp64/www/Proyecto_Arancel_2018/Reportes_Estadisticos_ASA/ConexionB
         mostrar_TOTALES_CTAGASTOS($query_CTAGASTOS,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$year_Consulta);
         mostrar_TOTALES_POLIZA($query_POLIZA_IG,$query_POLIZA_IMP,$dbARA,$mes_ConsultaIN,$mes_ConsultaFN,$year_Consulta);
          ?>
+         <form><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" /></form>
+         <form action="IU5_muestraprevia_pdf.php" method="post">
+         <br/>
+         <input type="submit" name="entrar" value="IMPRIMIR"/>
+
          <?php
-         echo '<form action="IU3_muestraprevia_pdf.php"><input type="button" value="VOLVER" name="volver atrás2" onclick="history.back()" />';
-         echo '<input type="button" value="IMPRIMIR" name="volver atrás2"/></form>';
+         echo '
+         <input type="hidden" name="mes_reporte_1" value="'.$mes_ConsultaIN.'">
+         <input type="hidden" name="mes_reporte_2" value="'.$mes_ConsultaFN.'">
+         <input type="hidden" name="year_reporte" value="'.$year_Consulta.'">
+
+         ';
          ?>
        </div>
      </div>
